@@ -48,6 +48,23 @@ contract FundMe {
   }
 
   /**
+   * @notice The receive function is a fallback that is called when the contract is sent Ether (without data).
+   * @dev It simply calls the fund() function.
+   */
+  receive() external payable {
+    fund();
+  }
+
+  /**
+   * @notice The fallback function is called when the contract is called without a function signature
+   * (i.e., someone just sent Ether) or for function calls that do not match an existing function.
+   * @dev It simply calls the fund() function.
+   */
+  fallback() external payable {
+    fund();
+  }
+
+  /**
    * @notice Funds the contract and checks if the funding amount is sufficient based on ETH/USD price
    */
   function fund() public payable {

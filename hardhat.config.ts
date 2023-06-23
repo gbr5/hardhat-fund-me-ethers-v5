@@ -27,7 +27,7 @@ interface IHardhatUserConfig extends HardhatUserConfig {
     outputFile: string
     noColors: boolean
     currency: string
-    coinmarketcap: string
+    coinmarketcap?: string
     token: string
   }
   namedAccounts: {
@@ -62,11 +62,11 @@ const config: IHardhatUserConfig = {
     customChains: [],
   },
   gasReporter: {
-    enabled: false,
+    enabled: true,
     outputFile: "gas-report.txt",
     noColors: true,
     currency: "USD",
-    coinmarketcap: COINMARKETCAP_API_KEY,
+    // coinmarketcap: COINMARKETCAP_API_KEY,
     token: "MATIC",
   },
   namedAccounts: {

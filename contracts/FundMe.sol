@@ -21,7 +21,7 @@ contract FundMe {
   uint256 public constant MINIMUM_USD = 50 * 10 ** 18;
 
   // Private state variable to hold the owner's address
-  address private immutable s_owner;
+  address private immutable i_owner;
 
   // An array to hold the addresses of all funders
   address[] public s_funders; //private
@@ -34,7 +34,7 @@ contract FundMe {
 
   // Modifier to restrict access to the contract owner
   modifier onlyOwner() {
-    if (msg.sender != s_owner) revert FundMe__NotOwner();
+    if (msg.sender != i_owner) revert FundMe__NotOwner();
     _;
   }
 
@@ -44,7 +44,7 @@ contract FundMe {
    */
   constructor(address _priceFeed) {
     s_priceFeed = AggregatorV3Interface(_priceFeed);
-    s_owner = msg.sender;
+    i_owner = msg.sender;
   }
 
   /**
@@ -89,7 +89,7 @@ contract FundMe {
     }
     s_funders = new address[](0);
 
-    (bool success, ) = s_owner.call{value: address(this).balance}("");
+    (bool success, ) = i_owner.call{value: address(this).balance}("");
     require(success, "Withdrawal failed.");
   }
 
@@ -109,7 +109,7 @@ contract FundMe {
     }
     s_funders = new address[](0);
 
-    (bool success, ) = s_owner.call{value: address(this).balance}("");
+    (bool success, ) = i_owner.call{value: address(this).balance}("");
     require(success, "Withdrawal failed.");
   }
 
@@ -146,7 +146,7 @@ contract FundMe {
    * @return The address of the contract owner
    */
   function getOwner() public view returns (address) {
-    return s_owner;
+    return i_owner;
   }
 
   /**

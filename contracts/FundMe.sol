@@ -24,10 +24,10 @@ contract FundMe {
   address private immutable s_owner;
 
   // An array to hold the addresses of all funders
-  address[] private s_funders;
+  address[] public s_funders; //private
 
   // A mapping to keep track of the amount of funding an address has provided
-  mapping(address => uint256) private s_addressToAmountFunded;
+  mapping(address => uint256) public s_addressToAmountFunded; //private
 
   // Instance of the AggregatorV3Interface to interact with the price feed
   AggregatorV3Interface private s_priceFeed;

@@ -6,6 +6,10 @@ import "./PriceConverter.sol";
 
 // Custom error to be thrown if someone other than the contract owner tries to call a function.
 error FundMe__NotOwner();
+// Custom error to be thrown if someone sends less than the minimum usd established.
+error FundMe__NotEnoughETH();
+// Custom error to be thrown if withdrawal doesn't succeed.
+error FundMe__WithdrawalFailed();
 
 /**
  * @title A sample Funding Contract
@@ -24,10 +28,10 @@ contract FundMe {
   address private immutable i_owner;
 
   // An array to hold the addresses of all funders
-  address[] public s_funders; //private
+  address[] private s_funders;
 
   // A mapping to keep track of the amount of funding an address has provided
-  mapping(address => uint256) public s_addressToAmountFunded; //private
+  mapping(address => uint256) private s_addressToAmountFunded;
 
   // Instance of the AggregatorV3Interface to interact with the price feed
   AggregatorV3Interface private s_priceFeed;
@@ -69,7 +73,7 @@ contract FundMe {
    */
   function fund() public payable {
     uint256 minimumUSD = msg.value.getConversionRate(s_priceFeed);
-    require(minimumUSD >= MINIMUM_USD, "You need to spend more ETH!");
+    if (minimumUSD < MINIMUM_USD) revert FundMe__NotEnoughETH();
 
     s_addressToAmountFunded[msg.sender] += msg.value;
     s_funders.push(msg.sender);
@@ -90,7 +94,7 @@ contract FundMe {
     s_funders = new address[](0);
 
     (bool success, ) = i_owner.call{value: address(this).balance}("");
-    require(success, "Withdrawal failed.");
+    if (!success) revert FundMe__WithdrawalFailed();
   }
 
   /**
@@ -110,7 +114,7 @@ contract FundMe {
     s_funders = new address[](0);
 
     (bool success, ) = i_owner.call{value: address(this).balance}("");
-    require(success, "Withdrawal failed.");
+    if (!success) revert FundMe__WithdrawalFailed();
   }
 
   /**

@@ -1,3 +1,4 @@
+.encryptedKey.json
 node_modules
 .env
 coverage
@@ -9,6 +10,8 @@ typechain-types
 cache
 artifacts
 gas-report.txt
-coverage.json
-coverage
-.encryptedKey.json
+.DS_Store
+deployments
+
+# VSCode
+.vscode

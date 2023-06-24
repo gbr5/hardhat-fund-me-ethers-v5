@@ -2,7 +2,6 @@ import { deployments, ethers, getNamedAccounts } from "hardhat"
 // import { FundMe, MockV3Aggregator } from "../../typechain-types"
 import { assert, expect } from "chai"
 import { Address } from "hardhat-deploy/dist/types"
-import { BigNumber } from "ethers"
 
 // !!
 //
@@ -92,7 +91,6 @@ describe("FundMe", async function () {
         const fundMeConnectedContract = await fundMe.connect(accounts[i])
 
         fundMeConnectedContract.fund({ value: sendValue })
-        // totalFundedValue.add(sendValue)
       }
       const startingFundMeBalance = await fundMe.provider.getBalance(
         fundMe.address
@@ -177,7 +175,6 @@ describe("FundMe", async function () {
         const fundMeConnectedContract = await fundMe.connect(accounts[i])
 
         fundMeConnectedContract.fund({ value: sendValue })
-        // totalFundedValue.add(sendValue)
       }
       const startingFundMeBalance = await fundMe.provider.getBalance(
         fundMe.address

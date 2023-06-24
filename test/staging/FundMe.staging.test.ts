@@ -17,7 +17,7 @@ developmentChain.includes(network.config.chainId!)
   : describe("FundMe", async function () {
       let fundMe: any //FundMe
       let deployer: Address
-      const sendValue = ethers.utils.parseEther("0.5")
+      const sendValue = ethers.utils.parseEther("0.1")
 
       beforeEach(async function () {
         deployer = (await getNamedAccounts()).deployer

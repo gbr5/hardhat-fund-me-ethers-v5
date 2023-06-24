@@ -3,6 +3,8 @@
     "compile": "hardhat compile",
     "deploy": "hardhat deploy",
     "encrypt": "hardhat run scripts/encryptKey.ts",
+    "fund": "hardhat run scripts/fund.ts",
+    "withdraw": "hardhat run scripts/withdraw.ts",
     "runnode": "hardhat node",
     "clean": "hardhat clean",
     "test": "hardhat test",
